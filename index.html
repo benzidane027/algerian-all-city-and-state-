@@ -36,10 +36,21 @@
         //if you want to use arabic remove this part "_ascii" for lines:
         // 64 , 80 , 81 , 97 ,98
 
+        let title = (lable) => {
+          let v=document.createElement("option");
+          v.value = "no select";
+          v.textContent = lable;
+          return v
+        };
+
         //createin 3 select in html
         let html_select_city = document.createElement("select");
         let html_select_diara = document.createElement("select");
         let html_select_commune = document.createElement("select");
+
+        html_select_city.appendChild(title("wilaya"));
+        html_select_diara.appendChild(title("diara"));
+        html_select_commune.appendChild(title("baladiya"));
 
         //create a container for the three select above
         let container = document.createElement("div");
@@ -76,7 +87,7 @@
         //listen on list of diara changing for change the list of baladiya
         html_select_diara.onchange = (e) => {
           html_select_commune.innerHTML =
-            "<option value='no select'>no select</option>";
+            "<option value='no select'>baladiya</option>";
           sub_sub_city.clear();
 
           data.forEach((v, i) => {
@@ -94,7 +105,7 @@
         //listen on list of city changing for change the list of diara
         html_select_city.onchange = (e) => {
           html_select_diara.innerHTML =
-            "<option value='no select'>no select</option>";
+            "<option value='no select'>diara</option>";
           sub_city.clear();
           data.forEach((v, i) => {
             if (e.target.value === v.wilaya_name_ascii)
@@ -109,12 +120,9 @@
           });
         };
         //temp variable for set "no select" lable on select element
-        let temp = document.createElement("option");
-        temp.value = "no select";
-        temp.textContent = "no select";
-        html_select_city.appendChild(temp);
-        html_select_diara.appendChild(temp.cloneNode(true));
-        html_select_commune.appendChild(temp.cloneNode(true));
+      
+
+        
 
         //add the select element on div container
         container.appendChild(html_select_city);
